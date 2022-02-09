@@ -1,0 +1,35 @@
+<div class="container">
+    <section id="paging" class="mb-3 mt-5">
+        <div class="row text-left">
+            <div class="col-12 mb-2">
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 mt-2">
+                <button type="button" class="btn btn-info btn-sm mr-1" (click)="goBack()">
+                    <i class="bi bi-arrow-return-left"></i>
+                </button>
+                <button type="button" class="btn btn-dark" id="add-button" (click)="open(content)">
+                    Agregar
+                </button>
+            </div>
+        </div>
+
+        <app-users-list [updateList]="updateList" [setParams]="setParams" (edit)="edit($event)"></app-users-list>
+
+    </section>
+</div>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Empleados</h4>
+        <i class="ft-x-square font-large-1 blue-grey darken-4" (click)="modalService.dismissAll()"></i>
+    </div>
+    <div class="modal-body">
+        <!-- <app-user-form (status)="movementCreationStatus($event)" [formData]="formData"></app-user-form> -->
+    </div>
+</ng-template>

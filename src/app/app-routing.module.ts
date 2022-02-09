@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./modules/users/user.module').then(m => m.UserModule), canActivate: [AuthGuardService]
   },
   {
     path: '**',

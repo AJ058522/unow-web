@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm.value)
       .then(data => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['users']);
         this.loginForm.reset();
       }, error => {
         this.errorMessage = (error.error.error) ? error.error.error : null;

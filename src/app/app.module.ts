@@ -6,12 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AuthModule } from './modules/auth/auth.module';
-import { CoreModule } from './core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { UserModule } from './modules/users/user.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     AuthModule,
     CoreModule,
-    NgbModule
+    NgbModule,
+    SharedModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
