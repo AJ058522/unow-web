@@ -35,8 +35,8 @@
                         <td>{{ row.job }}</td>
                         <td>{{ row.birthday }}</td>
                         <td>
-                            <span class="badge pointer" appUserStatus [status]="row.estatus">
-                                {{ row.estatus }}
+                            <span class="badge pointer font-white" appUserStatus [status]="row.estatus">
+                                {{ row.estatus | userStatus }}
                             </span>
                         </td>
                         <td>
