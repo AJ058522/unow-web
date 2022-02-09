@@ -2,7 +2,7 @@
     <form class="form mt-3" [formGroup]="addForm" (ngSubmit)="onSubmit()">
         <div class="form-body">
 
-            <h4 class="form-section">Datos de la Orden
+            <h4 class="form-section">Datos del Empleado
                 <span class="badge pointer" appOrderStatus [status]="formData.status_name" *ngIf="formData">
                     {{ formData.status_name }}
                 </span>
