@@ -1,1 +1,146 @@
-<p>user-form works!</p>
+<div class="px-3">
+    <form class="form mt-3" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+        <div class="form-body">
+
+            <h4 class="form-section">Datos de la Orden
+                <span class="badge pointer" appOrderStatus [status]="formData.status_name" *ngIf="formData">
+                    {{ formData.status_name }}
+                </span>
+            </h4>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="name">* Nombres</label>
+                        <input type="text" id="name" class="form-control" formControlName="name">
+                        <div
+                            *ngIf="addForm.get('name').hasError && (addForm.get('name').touched || addForm.get('name').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('name').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="last_name">* Apellidos</label>
+                        <input type="text" id="last_name" class="form-control" formControlName="last_name">
+                        <div
+                            *ngIf="addForm.get('last_name').hasError && (addForm.get('last_name').touched || addForm.get('last_name').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('last_name').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="email">* Email</label>
+                        <input type="email" id="email" class="form-control" formControlName="email">
+                        <div
+                            *ngIf="addForm.get('email').hasError && (addForm.get('email').touched || addForm.get('email').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('email').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="job">* Puesto de trabajo</label>
+                        <ng-select [items]="positionsList" [appendTo]="'body'" placeholder="Selecciona..."
+                            formControlName="job">
+                        </ng-select>
+                        <div *ngIf="addForm.get('job').hasError &&
+                            (addForm.get('job').touched ||
+                            addForm.get('job').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('job').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="birthday">* Fecha de nacimiento</label>
+                        <input type="date" id="birthday" class="form-control" formControlName="birthday">
+                        <div
+                            *ngIf="addForm.get('birthday').hasError && (addForm.get('birthday').touched || addForm.get('birthday').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('birthday').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="estatus">* Estatus</label>
+                        <ng-select [items]="estatusList" bindLabel="name" bindValue="id" [appendTo]="'body'"
+                            placeholder="Selecciona..." formControlName="estatus">
+                        </ng-select>
+                        <div
+                            *ngIf="addForm.get('estatus').hasError && (addForm.get('estatus').touched || addForm.get('estatus').dirty)">
+                            <div class="inv-feedback" *ngIf="addForm.get('estatus').hasError('required')">
+                                El campo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" *ngIf="!formData">
+                    <div class="form-group">
+                        <label for="password">* Contraseña</label>
+                        <input [type]="passwordType" id="password" class="form-control" formControlName="password">
+                    </div>
+                    <div *ngIf="addForm.get('password').hasError &&
+                        (addForm.get('password').touched ||
+                        addForm.get('password').dirty)">
+                        <div class="inv-feedback" *ngIf="addForm.get('password').hasError('required')">
+                            El campo es obligatorio.
+                        </div>
+                        <div class="inv-feedback" *ngIf="addForm.get('password').hasError('maxlength')">
+                            Máximo
+                            {{addForm.get('password').errors.maxlength.requiredLength}}
+                            caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="!formData">
+                    <div class="form-group">
+                        <label for="password_confirmation">* Confirmar Contraseña</label>
+                        <input [type]="passwordType" id="password_confirmation" class="form-control"
+                            formControlName="password_confirmation">
+                    </div>
+                    <div *ngIf="addForm.get('password_confirmation').hasError &&
+                        (addForm.get('password_confirmation').touched ||
+                        addForm.get('password_confirmation').dirty)">
+                        <div class="inv-feedback" *ngIf="addForm.get('password_confirmation').hasError('required')">
+                            El campo es obligatorio.
+                        </div>
+                        <div class="inv-feedback" *ngIf="addForm.get('password_confirmation').hasError('maxlength')">
+                            Máximo
+                            {{addForm.get('password_confirmation').errors.maxlength.requiredLength}}
+                            caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="errors">
+                <div class="inv-feedback" *ngFor="let error of errors">
+                    {{error}}
+                </div>
+            </div>
+
+            <div class="row border-top py-2" *ngIf="showSaveButton">
+                <div class="col-md-12">
+                    <input class="btn btn-dark" type="submit" [disabled]="!addForm.valid" value="Enviar">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
