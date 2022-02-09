@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { User } from '../interfaces/user';
@@ -10,10 +10,14 @@ import { Params, ParamsString } from '../../../shared/classes/params/params';
 export class UserService {
 
   ParamsString = new ParamsString;
+  private httpWithoutInterceptor: HttpClient;
 
   constructor(
-    public http: HttpClient
-  ) { }
+    public http: HttpClient,
+    public httpBackend: HttpBackend
+  ) {
+    this.httpWithoutInterceptor = new HttpClient(httpBackend);
+   }
 
   users(userId: string = null, params: Params = null) {
 
@@ -49,6 +53,17 @@ export class UserService {
   destroy(userId: string) {
     return new Promise((resolve, reject) => {
       const response = this.http.delete('users/' + userId);
+      response.subscribe(data => {
+        resolve(data);
+      });
+    });
+  }
+
+  positions() {
+    const URL: string = 'https://ibillboard.com/api/positions';
+
+    return new Promise((resolve, reject) => {
+      const response = this.httpWithoutInterceptor.get(URL);
       response.subscribe(data => {
         resolve(data);
       });
